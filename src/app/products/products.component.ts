@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ProductService } from '../services/product.service';
 
 @Component({
   selector: 'app-products',
@@ -9,15 +10,11 @@ export class ProductsComponent implements OnInit {
   //on est obligé d'inisialiser la variable
   products!: Array<any>;
 
-  constructor() {}
+  constructor(private productService: ProductService) {}
 
   // ca execute au démarage
   ngOnInit(): void {
-    this.products = [
-      { id: 1, name: 'Computer', price: 6500 },
-      { id: 2, name: 'Printer', price: 1200 },
-      { id: 3, name: 'Smart phone', price: 1400 },
-    ];
+    this.products = this.productService.getAllProducts();
   }
 
   //supprimer un produit, evenement au click
