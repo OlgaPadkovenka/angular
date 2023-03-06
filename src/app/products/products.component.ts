@@ -14,7 +14,11 @@ export class ProductsComponent implements OnInit {
 
   // ca execute au démarage
   ngOnInit(): void {
-    this.products = this.productService.getAllProducts();
+    this.productService.getAllProducts().subscribe({
+      next: (data) => {
+        this.products = data;
+      },
+    });
   }
 
   //supprimer un produit, evenement au click

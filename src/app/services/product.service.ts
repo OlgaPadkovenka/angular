@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +16,7 @@ export class ProductService {
   }
 
   //methode qui retourne tous les produits
-  public getAllProducts() {
-    return this.products;
+  public getAllProducts(): Observable<Array<any>> {
+    return of(this.products);
   }
 }
