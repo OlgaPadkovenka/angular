@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +17,9 @@ export class ProductService {
 
   //methode qui retourne tous les produits
   public getAllProducts(): Observable<Array<any>> {
-    return of(this.products);
+    let rnd = Math.random();
+    if (rnd < 0.5)
+      return throwError(() => new Error('Internet connexion error'));
+    else return of(this.products);
   }
 }

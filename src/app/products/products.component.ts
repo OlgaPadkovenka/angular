@@ -9,6 +9,7 @@ import { ProductService } from '../services/product.service';
 export class ProductsComponent implements OnInit {
   //on est obligé d'inisialiser la variable
   products!: Array<any>;
+  errorMessage!: string;
 
   constructor(private productService: ProductService) {}
 
@@ -18,6 +19,9 @@ export class ProductsComponent implements OnInit {
       next: (data) => {
         this.products = data;
       },
+      error: (err) => {
+        this.errorMessage = err;
+      },
     });
   }
 
@@ -25,7 +29,6 @@ export class ProductsComponent implements OnInit {
   handleDeleteProduct(p: any) {
     //je cherche l'element à supprimer
     let index = this.products?.indexOf(p);
-
     this.products.splice(index, 1);
   }
 }
