@@ -16,6 +16,10 @@ export class ProductsComponent implements OnInit {
 
   // ca execute au démarage
   ngOnInit(): void {
+    this.handleGetAllProducts();
+  }
+
+  handleGetAllProducts() {
     this.productService.getAllProducts().subscribe({
       next: (data) => {
         this.products = data;
@@ -27,9 +31,20 @@ export class ProductsComponent implements OnInit {
   }
 
   //supprimer un produit, evenement au click
-  handleDeleteProduct(p: any) {
-    //je cherche l'element à supprimer
-    let index = this.products?.indexOf(p);
-    this.products.splice(index, 1);
+  handleDeleteProduct(p: Product) {
+    // //je cherche l'element à supprimer
+    // let index = this.products?.indexOf(p);
+    // this.products.splice(index, 1);
+
+    let conf = confirm("Est-ce que vous être sur de vouloir supprimer");
+    if(conf == false) return;
+
+    this.productService.deleteProduct(p.id).subscribe({
+      next: (data: boolean) => {
+        //this.handleGetAllProducts();
+        let index = this.products?.indexOf(p);
+        this.products.splice(index, 1);
+      },
+    });
   }
 }

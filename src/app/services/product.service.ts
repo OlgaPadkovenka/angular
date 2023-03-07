@@ -24,4 +24,11 @@ export class ProductService {
       return throwError(() => new Error('Internet connexion error'));
     else return of(this.products);
   }
+
+  public deleteProduct(id: number): Observable<boolean> {
+    //je prends des ids des produits que je ne veux pas supprimer.
+    //si l'id est differant de l'id- que je veux supprimer.
+    this.products.filter((p) => p.id != id);
+    return of(true);
+  }
 }
