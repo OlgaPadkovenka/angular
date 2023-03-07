@@ -20,6 +20,15 @@
                         <td>{{p.name}}</td>
                         <td>{{p.price}}</td>
                         <td>
+                            <i *ngIf="p.promotion == true" class="bi-heart-fill text-success"></i>
+                        </td>
+                        <td>
+                            <button (click)="handelSetPromotion(p)" [ngClass]="p.promotion == true? 'btn btn-danger' : 'btn-success'" class="btn">
+                                <span *ngIf="p.promotion == true">Promo off</span>
+                                <span *ngIf="p.promotion == false">Promo on</span>
+                            </button>
+                        </td>
+                        <td>
                             <button click="handleDeleteProduct(p)" class="btn btn-danger">
                                 <i class="bi bi-trash"></i>
                             </button>
