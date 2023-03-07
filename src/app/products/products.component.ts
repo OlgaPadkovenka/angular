@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Product } from '../model/product.model';
 import { ProductService } from '../services/product.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { ProductService } from '../services/product.service';
 })
 export class ProductsComponent implements OnInit {
   //on est obligé d'inisialiser la variable
-  products!: Array<any>;
+  products!: Array<Product>;
   errorMessage!: string;
 
   constructor(private productService: ProductService) {}
