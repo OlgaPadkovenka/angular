@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
       next: (appUser: AppUser) => {
         this.loginService.loginUser(appUser).subscribe({
           next: (data: boolean) => {
-            this.router.navigateByUrl('/products');
+            this.router.navigateByUrl('/admin');
           },
         });
       },
