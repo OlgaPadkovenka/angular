@@ -43,6 +43,13 @@
                     </tr>
                 </tbody>
             </table>
+            <ul class="nav nav-pills">
+                <!-- Je créer un tableau de totalPages dimention -->
+                <li *ngFor="let item of [].constructor(this.totalPages); let i = index">
+                    <a (click)="goToPage(i)" [ngClass]="i == currentPage ? 'btn-success' : 'btn-outline-success' "
+                        class="btn ms-1 mt-1">{{i}}</a>
+                </li>
+            </ul>
         </div>
     </div>
 </div>
