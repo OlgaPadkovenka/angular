@@ -15,6 +15,27 @@ export class ProductService {
       { id: UUID.UUID(), name: 'Printer', price: 1200, promotion: false },
       { id: UUID.UUID(), name: 'Smart phone', price: 1400, promotion: true },
     ];
+
+    for (let i = 0; i < 10; i++) {
+      this.products.push({
+        id: UUID.UUID(),
+        name: 'Computer',
+        price: 6500,
+        promotion: true,
+      });
+      this.products.push({
+        id: UUID.UUID(),
+        name: 'Printer',
+        price: 1200,
+        promotion: false,
+      });
+      this.products.push({
+        id: UUID.UUID(),
+        name: 'Smart phone',
+        price: 1400,
+        promotion: true,
+      });
+    }
   }
 
   //methode qui retourne tous les produits
