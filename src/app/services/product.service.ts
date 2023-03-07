@@ -69,10 +69,11 @@ export class ProductService {
   ): Observable<PageProduct> {
     //le résultat de la recherche
     let result = this.products.filter((p) => p.name.includes(keyword));
-    let index = page * size;
+    let index = (page - 1) * size;
 
     //division entière, il n'y a pas de virgule ~~
-    let totalPages = ~~(result.length / size);
+    //let totalPages = ~~(result.length / size);
+    let totalPages = Math.ceil(result.length / size);
 
     //S'il est different de 0, il faut ajouter 1
     if (this.products.length % size != 0) totalPages++;
@@ -87,10 +88,13 @@ export class ProductService {
   }
 
   public getPageProducts(page: number, size: number): Observable<PageProduct> {
-    let index = page * size;
+    // soustraire 1 à page pour commencer la pagination à partir de 1
+    //let index = page * size;
+    let index = (page - 1) * size;
 
     //division entière, il n'y a pas de virgule ~~
-    let totalPages = ~~(this.products.length / size);
+    //let totalPages = ~~(this.products.length / size);
+    let totalPages = Math.ceil(this.products.length / size);
 
     //S'il est different de 0, il faut ajouter 1
     if (this.products.length % size != 0) totalPages++;

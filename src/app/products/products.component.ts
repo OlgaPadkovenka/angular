@@ -11,9 +11,9 @@ import { ProductService } from '../services/product.service';
 export class ProductsComponent implements OnInit {
   //on est obligé d'inisialiser la variable
   products!: Array<Product>;
-  currentPage: number = 0;
+  currentPage: number = 1;
   pageSize: number = 5;
-  totalPages: number = 0;
+  totalPages: number = 1;
   errorMessage!: string;
   searchFormGroup!: FormGroup;
   currentAction: string = 'all';
