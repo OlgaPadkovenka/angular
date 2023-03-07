@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Product } from '../model/product.model';
 import { ProductService } from '../services/product.service';
 
@@ -11,11 +12,20 @@ export class ProductsComponent implements OnInit {
   //on est obligé d'inisialiser la variable
   products!: Array<Product>;
   errorMessage!: string;
+  searchFormGroup!: FormGroup;
 
-  constructor(private productService: ProductService) {}
+  constructor(
+    private productService: ProductService,
+    private fb: FormBuilder
+  ) {}
 
   // ca execute au démarage
   ngOnInit(): void {
+    this.searchFormGroup = this.fb.group({
+      //le champ du formulaire
+      keyword: this.fb.control(null),
+    });
+
     this.handleGetAllProducts();
   }
 
@@ -56,6 +66,15 @@ export class ProductsComponent implements OnInit {
       },
       error: (err) => {
         this.errorMessage = err;
+      },
+    });
+  }
+
+  handleSearchProducts() {
+    let keyword = this.searchFormGroup.value.keyword;
+    this.productService.searchProducts(keyword).subscribe({
+      next: (data: Product[]) => {
+        this.products = data;
       },
     });
   }

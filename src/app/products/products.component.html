@@ -6,6 +6,12 @@
         <!-- <div class="card">  -->
         <div class="card-header text-center">Products list</div>
         <div class="card-body">
+            <form [formGroup]="searchFormGroup" (ngSubmit)="handleSearchProducts()"
+                class="form-inline my-2 my-lg-0 d-flex">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
+                    formControlName="keyword">
+                <button class="btn"><i class="bi bi-search"></i></button>
+            </form>
             <table class="table">
                 <thead>
                     <tr>
@@ -23,7 +29,8 @@
                             <i *ngIf="p.promotion == true" class="bi-heart-fill text-success"></i>
                         </td>
                         <td>
-                            <button (click)="handelSetPromotion(p)" [ngClass]="p.promotion == true? 'btn btn-danger' : 'btn-success'" class="btn">
+                            <button (click)="handelSetPromotion(p)"
+                                [ngClass]="p.promotion == true? 'btn btn-danger' : 'btn-success'" class="btn">
                                 <span *ngIf="p.promotion == true">Promo off</span>
                                 <span *ngIf="p.promotion == false">Promo on</span>
                             </button>
