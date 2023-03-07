@@ -16,6 +16,7 @@ export class ProductsComponent implements OnInit {
   totalPages: number = 0;
   errorMessage!: string;
   searchFormGroup!: FormGroup;
+  currentAction: string = 'all';
 
   constructor(
     private productService: ProductService,
@@ -75,12 +76,17 @@ export class ProductsComponent implements OnInit {
   }
 
   handleSearchProducts() {
+    this.currentAction = 'search';
+    this.currentPage = 0;
     let keyword = this.searchFormGroup.value.keyword;
-    this.productService.searchProducts(keyword).subscribe({
-      next: (data: Product[]) => {
-        this.products = data;
-      },
-    });
+    this.productService
+      .searchProducts(keyword, this.currentPage, this.pageSize)
+      .subscribe({
+        next: (data: PageProduct) => {
+          this.products = data.products;
+          this.totalPages = data.totalPages;
+        },
+      });
   }
 
   handleGetPageProducts() {
@@ -100,6 +106,7 @@ export class ProductsComponent implements OnInit {
 
   goToPage(i: number) {
     this.currentPage = i;
-    this.handleGetPageProducts();
+    if (this.currentAction === 'all') this.handleGetPageProducts();
+    else this.handleSearchProducts();
   }
 }

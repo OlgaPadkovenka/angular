@@ -62,9 +62,28 @@ export class ProductService {
     } else return throwError(() => new Error("Product n'est pas trouvé"));
   }
 
-  public searchProducts(keyword: string): Observable<Product[]> {
-    let products = this.products.filter((p) => p.name.includes(keyword));
-    return of(products);
+  public searchProducts(
+    keyword: string,
+    page: number,
+    size: number
+  ): Observable<PageProduct> {
+    //le résultat de la recherche
+    let result = this.products.filter((p) => p.name.includes(keyword));
+    let index = page * size;
+
+    //division entière, il n'y a pas de virgule ~~
+    let totalPages = ~~(result.length / size);
+
+    //S'il est different de 0, il faut ajouter 1
+    if (this.products.length % size != 0) totalPages++;
+
+    let pageProducts = result.slice(index, index + size);
+    return of({
+      page: page,
+      size: size,
+      totalPages: totalPages,
+      products: pageProducts,
+    });
   }
 
   public getPageProducts(page: number, size: number): Observable<PageProduct> {
