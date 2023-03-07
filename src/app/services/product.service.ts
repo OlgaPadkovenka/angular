@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { UUID } from 'angular2-uuid';
 import { Observable, of, throwError } from 'rxjs';
 import { Product } from '../model/product.model';
 
@@ -10,9 +11,9 @@ export class ProductService {
 
   constructor() {
     this.products = [
-      { id: 1, name: 'Computer', price: 6500, promotion: true },
-      { id: 2, name: 'Printer', price: 1200, promotion: false },
-      { id: 3, name: 'Smart phone', price: 1400, promotion: true },
+      { id: UUID.UUID(), name: 'Computer', price: 6500, promotion: true },
+      { id: UUID.UUID(), name: 'Printer', price: 1200, promotion: false },
+      { id: UUID.UUID(), name: 'Smart phone', price: 1400, promotion: true },
     ];
   }
 
@@ -25,14 +26,14 @@ export class ProductService {
     else return of(this.products);
   }
 
-  public deleteProduct(id: number): Observable<boolean> {
+  public deleteProduct(id: string): Observable<boolean> {
     //je prends des ids des produits que je ne veux pas supprimer.
     //si l'id est differant de l'id- que je veux supprimer.
     this.products.filter((p) => p.id != id);
     return of(true);
   }
 
-  public setPromotion(id: number): Observable<boolean> {
+  public setPromotion(id: string): Observable<boolean> {
     let product = this.products.find((p) => p.id == id);
     if (product != undefined) {
       product.promotion = !product.promotion;
